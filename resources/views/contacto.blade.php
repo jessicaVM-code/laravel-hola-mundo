@@ -7,7 +7,6 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>Hola mundo</h1>
-    <a href="/contacto">Ir a contacto</a>
+    <h1>Contacto</h1>
 </body>
 </html>
