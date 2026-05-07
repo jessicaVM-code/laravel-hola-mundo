@@ -1,57 +1,20 @@
 <?php
 
+use App\Http\Controllers\CitasController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/servicios', function () {
-    return "Pagina de servicios";
-});
-
-Route::get('/contacto', function () {
-    return "Pagina de contacto";
-});
-
-Route::get('/citas', function () {
-    return "Mostrar las citas";
-});
-
-Route::get('/citas/{cita}', function ($cita) {
-    return "Mostrar la cita: " .$cita;
-});
-
-Route::patch('/citas/{cita}', function ($cita) {
-     return "Editar la cita: " .$cita;
-});
-
-Route::delete('/citas/{cita}', function ($cita) {
-     return "Borrar la cita: " .$cita;
-});
-
-Route::get('/citas/create', function () {
-    return "Formulario de citas";
-});
-
-Route::post('/citas/create', function () {
-    return "CRear la cita";
-});
 /*
-Route::get('/contacto', function () {
-    return view('contacto');
-});
+Route::get('/citas', [CitasController::class, 'index'] );
+Route::get('/citas/create', [CitasController::class, 'create'] );
+Route::get('/citas/{cita}', [CitasController::class, 'show']  );
+Route::get('/citas/{cita}/edit', [CitasController::class, 'edit'] );
+Route::patch('/citas/{cita}', [CitasController::class, 'update'] );
+Route::delete('/citas/{cita}', [CitasController::class, 'destroy']);
+Route::post('/citas/create', [CitasController::class, 'store']  );*/
 
-Route::get('/saludo', function () {
-    return 'Saludo!!';
-});
+Route::resource('citas', CitasController::class);
 
-//Rutas con parametros y expresion regular
-Route::get('/saludo/{nombre}/{apellido?}/{id}', function (string $name, string $apellido = null) {
-    return 'Saludo: '. $name . " " . $apellido;
-})->where('nombre', '[A-Za-z]+')->where('id', '[0-9]+');
-
-
-Route::get('/usuario/{name}', function ($name) {
-    return 'Usuario: '. $name;
-})->whereAlphaNumeric('name')->name('usuario');*/
