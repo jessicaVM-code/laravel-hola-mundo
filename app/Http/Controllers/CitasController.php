@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Cita;
 
 class CitasController extends Controller
 {
@@ -11,7 +12,9 @@ class CitasController extends Controller
      */
     public function index()
     {
-        return "Mostrar lista de citas desde el controlador";
+       $citas = Cita::all();
+
+       return response()->json($citas);
     }
 
     /**
@@ -27,7 +30,15 @@ class CitasController extends Controller
      */
     public function store(Request $request)
     {
-        return "Crear cita en la BD";
+        $cita = Cita::create([
+            'mascota' => $request->mascota,
+            'tipo' => $request->tipo,
+            'fecha' => $request->fecha,
+            'dueno' => $request->dueno,
+            'telefono' => $request->telefono
+        ]);
+
+        return response()->json($cita);
     }
 
     /**
@@ -35,7 +46,9 @@ class CitasController extends Controller
      */
     public function show(string $id)
     {
-        return 'Mostrar cita desde el controlador: ' . $id;
+       $cita = Cita::find($id);
+
+       return response()->json($cita);
     }
 
     /**
