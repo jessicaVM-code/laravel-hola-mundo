@@ -30,13 +30,9 @@ class CitasController extends Controller
      */
     public function store(Request $request)
     {
-        $cita = Cita::create([
-            'mascota' => $request->mascota,
-            'tipo' => $request->tipo,
-            'fecha' => $request->fecha,
-            'dueno' => $request->dueno,
-            'telefono' => $request->telefono
-        ]);
+        $this->validarCita($request);
+
+        $cita = Cita::create($request->all());
 
         return response()->json($cita);
     }
@@ -64,7 +60,13 @@ class CitasController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        return "Actualizar en la BD";
+        $this->validarCita($request);
+
+        $cita = Cita::find($id);
+
+        $cita->update($request->all());
+
+        return response()->json($cita);
     }
 
     /**
@@ -72,6 +74,25 @@ class CitasController extends Controller
      */
     public function destroy(string $id)
     {
-        return "Eliminado en la BD: ".$id;
+        $cita = Cita::find($id);
+
+        $cita->delete();
+
+        return response()->json([
+            'message' => 'Cita eliminada correctamente'
+        ]);
+    }
+
+    private function validarCita(Request $request){
+        $request->validate([
+            'mascota' => 'required|string|max:20',
+            'tipo' => 'required|string|max:20',
+            'fecha' => 'required|date|after_or_equal:today',
+            'dueno' => 'required|string|max:20',
+            'telefono' => 'required|digits:5',
+        ],[
+            'fecha.after_or_equal' =>  'La cita no puede ser en una fecha pasada'
+        ]
+        );
     }
 }
