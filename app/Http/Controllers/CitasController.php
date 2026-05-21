@@ -91,7 +91,8 @@ class CitasController extends Controller
             'dueno' => 'required|string|max:20',
             'telefono' => 'required|digits:5',
         ],[
-            'fecha.after_or_equal' =>  'La cita no puede ser en una fecha pasada'
+            'fecha.after_or_equal' =>  'La cita no puede ser en una fecha pasada',
+            'telefono.digits' =>  'El telefono debe de ser de 5 digitos'
         ]
         );
     }
