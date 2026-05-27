@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CitasController;
+use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -17,4 +18,9 @@ Route::delete('api/citas/{cita}', [CitasController::class, 'destroy']);
 Route::post('api/citas', [CitasController::class, 'store']  );*/
 
 Route::resource('citas', CitasController::class);
+
+Route::post('/register', [AuthController::class, 'register']);
+
+Route::post('/login', [AuthController::class, 'login']);
+
 
